@@ -23,6 +23,7 @@ type packageDefinition struct {
 	DependencyType string
 	PackageFile    string
 	Manager        string
+	SkipReason     string
 }
 
 type packageUpdate struct {
@@ -38,7 +39,7 @@ func NewRepository(repo string) *repository {
 		ConstLabels: prometheus.Labels{
 			"repository": repo,
 		},
-	}, []string{"manager", "packageFile", "depName", "depType", "currentVersion"})
+	}, []string{"manager", "packageFile", "depName", "depType", "currentVersion", "skipReason"})
 
 	dependencyUpdateMetric := prometheus.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: "renovate",
@@ -95,6 +96,7 @@ func (p *repository) packageDefinition(metric *prometheus.GaugeVec, definition p
 		"depName":        definition.DependencyName,
 		"depType":        definition.DependencyType,
 		"currentVersion": definition.CurrentVersion,
+		"skipReason":     definition.SkipReason,
 	})
 
 	m.Set(1)
@@ -144,6 +146,7 @@ func (p *repository) Parse(line logLine) error {
 						DependencyType: dep.DepType,
 						Manager:        manager,
 						PackageFile:    packageDependency.PackageFile,
+						SkipReason:     dep.SkipReason,
 					})
 
 					for _, update := range dep.Updates {

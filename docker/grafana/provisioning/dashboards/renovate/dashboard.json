@@ -24,9 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 31561,
+  "id": 2,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -76,6 +75,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -83,9 +83,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -141,6 +143,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -148,9 +151,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -202,6 +207,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -209,9 +215,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -273,6 +281,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -280,9 +289,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -334,6 +345,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -341,9 +353,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -423,7 +437,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -490,7 +504,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -557,7 +571,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -624,7 +638,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -649,11 +663,188 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NONE"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 23
+      },
+      "id": 36,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(renovate_dependency{repository!=\"\", repository=~\"$repository\", manager=~\"$manager\", depName=~\"$depName\", currentVersion=~\"$currentVersion\"}) by (skipReason)",
+          "legendFormat": "{{skipReason}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Number of errors in dependencies",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "Value",
+            "renamePattern": "NONE"
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 23
+      },
+      "id": 37,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(renovate_dependency{repository!=\"\", repository=~\"$repository\", manager=~\"$manager\", depName=~\"$depName\", currentVersion=~\"$currentVersion\", skipReason!=\"\"}) by (repository)",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Number of dependency errors by repository",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "thresholds"
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -715,8 +906,11 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-background-solid"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "basic",
+                  "type": "color-background"
+                }
               },
               {
                 "id": "unit",
@@ -751,8 +945,11 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-background-solid"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "basic",
+                  "type": "color-background"
+                }
               },
               {
                 "id": "mappings",
@@ -798,8 +995,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "image"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "image"
+                }
               },
               {
                 "id": "mappings",
@@ -944,7 +1143,19 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 541
+                "value": 300
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Skip Reason"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
               }
             ]
           }
@@ -954,11 +1165,13 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 31
       },
       "id": 35,
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -969,7 +1182,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -978,7 +1191,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(renovate_dependency{repository!=\"\", repository=~\"$repository\", manager=~\"$manager\", depName=~\"$depName\", currentVersion=~\"$currentVersion\"}) by (manager, repository, depName, currentVersion, packageFile)",
+          "expr": "sum(renovate_dependency{repository!=\"\", repository=~\"$repository\", manager=~\"$manager\", depName=~\"$depName\", currentVersion=~\"$currentVersion\"}) by (manager, repository, depName, currentVersion, packageFile, skipReason)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1008,18 +1221,17 @@
             "excludeByName": {
               "Time": true
             },
+            "includeByName": {},
             "indexByName": {
               "@": 4,
               "Time": 0,
-              "Value": 10,
+              "Value": 8,
               "currentVersion": 5,
               "depName": 2,
               "manager": 3,
-              "newVersion": 6,
-              "packageFile": 9,
+              "packageFile": 6,
               "repository": 1,
-              "updateType": 8,
-              "vulnerabilityFix": 7
+              "skipReason": 7
             },
             "renameByName": {
               "Value": "Dependency used",
@@ -1029,6 +1241,7 @@
               "newVersion": "Available Version",
               "packageFile": "Package Manager File",
               "repository": "Repository",
+              "skipReason": "Skip Reason",
               "updateType": "Update Type",
               "vulnerabilityFix": "Vulerability Fix"
             }
@@ -1043,7 +1256,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 45
       },
       "id": 7,
       "panels": [],
@@ -1075,7 +1288,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 38
+        "y": 46
       },
       "id": 8,
       "options": {
@@ -1100,7 +1313,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1142,7 +1355,7 @@
         "h": 8,
         "w": 7,
         "x": 8,
-        "y": 38
+        "y": 46
       },
       "id": 28,
       "options": {
@@ -1167,7 +1380,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1209,7 +1422,7 @@
         "h": 8,
         "w": 6,
         "x": 15,
-        "y": 38
+        "y": 46
       },
       "id": 21,
       "options": {
@@ -1234,7 +1447,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1276,7 +1489,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 46
+        "y": 54
       },
       "id": 22,
       "options": {
@@ -1301,7 +1514,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1343,7 +1556,7 @@
         "h": 8,
         "w": 7,
         "x": 8,
-        "y": 46
+        "y": 54
       },
       "id": 29,
       "options": {
@@ -1368,7 +1581,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1396,11 +1609,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 11,
             "gradientMode": "none",
@@ -1409,6 +1624,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1446,7 +1662,7 @@
         "h": 11,
         "w": 11,
         "x": 0,
-        "y": 54
+        "y": 62
       },
       "id": 20,
       "options": {
@@ -1461,7 +1677,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1491,11 +1707,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "none",
@@ -1504,6 +1722,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 1,
@@ -1541,7 +1760,7 @@
         "h": 11,
         "w": 13,
         "x": 11,
-        "y": 54
+        "y": 62
       },
       "id": 9,
       "options": {
@@ -1556,7 +1775,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1587,7 +1806,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1649,8 +1870,11 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-background-solid"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "basic",
+                  "type": "color-background"
+                }
               },
               {
                 "id": "unit",
@@ -1689,8 +1913,11 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-background-solid"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "basic",
+                  "type": "color-background"
+                }
               },
               {
                 "id": "mappings",
@@ -1740,8 +1967,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "image"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "image"
+                }
               },
               {
                 "id": "mappings",
@@ -1884,11 +2113,13 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 65
+        "y": 73
       },
       "id": 19,
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -1904,7 +2135,7 @@
           }
         ]
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1997,7 +2228,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 79
+        "y": 87
       },
       "id": 33,
       "panels": [],
@@ -2016,7 +2247,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -2058,8 +2291,11 @@
                 }
               },
               {
-                "id": "custom.displayMode",
-                "value": "color-background-solid"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "basic",
+                  "type": "color-background"
+                }
               }
             ]
           },
@@ -2081,11 +2317,13 @@
         "h": 8,
         "w": 9,
         "x": 0,
-        "y": 80
+        "y": 88
       },
       "id": 31,
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -2095,7 +2333,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.2.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -2132,35 +2370,29 @@
       "type": "table"
     }
   ],
+  "preload": false,
   "refresh": "15m",
-  "schemaVersion": 37,
-  "style": "dark",
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "cluster",
           "value": "cluster"
         },
-        "hide": 0,
         "includeAll": false,
         "label": "Datasource",
-        "multi": false,
         "name": "datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
           "text": [
             "All"
           ],
@@ -2173,7 +2405,6 @@
           "uid": "${datasource}"
         },
         "definition": "label_values(renovate_dependency{repository!=\"\"}, repository)",
-        "hide": 0,
         "includeAll": true,
         "label": "Repository",
         "multi": true,
@@ -2185,14 +2416,11 @@
         },
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
           "text": [
             "All"
           ],
@@ -2205,7 +2433,6 @@
           "uid": "${datasource}"
         },
         "definition": "label_values(renovate_dependency{repository=~\"$repository\"}, manager)",
-        "hide": 0,
         "includeAll": true,
         "label": "Package manager",
         "multi": true,
@@ -2217,14 +2444,11 @@
         },
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
           "text": [
             "All"
           ],
@@ -2237,7 +2461,6 @@
           "uid": "${datasource}"
         },
         "definition": "label_values(renovate_dependency{manager=~\"$manager\", repository=~\"$repository\",}, depName)",
-        "hide": 0,
         "includeAll": true,
         "label": "Package",
         "multi": true,
@@ -2249,14 +2472,11 @@
         },
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
           "text": [
             "All"
           ],
@@ -2269,7 +2489,6 @@
           "uid": "${datasource}"
         },
         "definition": "label_values(renovate_dependency{manager=~\"$manager\", repository=~\"$repository\", depName=~\"$depName\"}, currentVersion)",
-        "hide": 0,
         "includeAll": true,
         "label": "Package Version",
         "multi": true,
@@ -2281,14 +2500,11 @@
         },
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "allValue": ".*",
         "current": {
-          "selected": false,
           "text": "All",
           "value": "$__all"
         },
@@ -2297,10 +2513,8 @@
           "uid": "${datasource}"
         },
         "definition": "label_values(renovate_dependency_update{manager=~\"$manager\", repository=~\"$repository\", depName=~\"$depName\"}, vulnerabilityFix)",
-        "hide": 0,
         "includeAll": true,
         "label": "Security Update",
-        "multi": false,
         "name": "vulnerabilityFix",
         "options": [],
         "query": {
@@ -2309,8 +2523,6 @@
         },
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -2322,5 +2534,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Renovate",
+  "uid": "ae6ivyyaxlt6od",
+  "version": 1,
   "weekStart": ""
 }

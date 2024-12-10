@@ -8,7 +8,7 @@ import (
 	"github.com/go-logr/logr"
 )
 
-type parser struct {
+type Parser struct {
 	opts         ParserOptions
 	r            io.Reader
 	repositories map[string]*repository
@@ -19,8 +19,8 @@ type ParserOptions struct {
 	Logger     logr.Logger
 }
 
-func NewParser(r io.Reader, opts ParserOptions) *parser {
-	return &parser{
+func NewParser(r io.Reader, opts ParserOptions) *Parser {
+	return &Parser{
 		opts:         opts,
 		r:            r,
 		repositories: make(map[string]*repository),
@@ -32,7 +32,7 @@ type Repository struct {
 	Name string
 }
 
-func (p *parser) Parse() (map[string]*repository, error) {
+func (p *Parser) Parse() (map[string]*repository, error) {
 	scanner := bufio.NewScanner(p.r)
 
 	var b []byte
@@ -57,7 +57,7 @@ func (p *parser) Parse() (map[string]*repository, error) {
 	return p.repositories, scanner.Err()
 }
 
-func (p *parser) repository(repository string) *repository {
+func (p *Parser) repository(repository string) *repository {
 	if collector, has := p.repositories[repository]; has {
 		return collector
 	}
