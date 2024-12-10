@@ -23,6 +23,9 @@ fmt:
 test:
 	go test -coverprofile coverage.out -v ./...
 
+test-local:
+	./bin/renovate-metrics push --file=renovate-log.ndjson --prometheus=http://localhost:9091
+
 GOLANGCI_LINT = $(GOBIN)/golangci-lint
 golangci-lint: ## Download golint locally if necessary.
 	$(call go-install-tool,$(GOLANGCI_LINT),github.com/golangci/golangci-lint/cmd/golangci-lint@v1.52.2)

@@ -38,23 +38,23 @@ func init() {
 				file = f
 			}
 
-			log := stdr.New(newStdLogger(log.Lshortfile))
+			logger := stdr.New(newStdLogger(log.Lshortfile))
 			stdr.SetVerbosity(logLevel)
 
-			parser := parser.NewParser(file, parser.ParserOptions{
+			renovateParser := parser.NewParser(file, parser.ParserOptions{
 				BufferSize: bufferSize,
-				Logger:     log,
+				Logger:     logger,
 			})
 
-			collectors, err := parser.Parse()
+			collectors, err := renovateParser.Parse()
 			if err != nil {
 				return err
 			}
 
 			client := push.New(prometheusArg, "renovate")
 
-			for repository, collector := range collectors {
-				client.Grouping("r", repository)
+			for _, collector := range collectors {
+				//client.Grouping("r", repository)
 
 				if err := client.Delete(); err != nil {
 					return err
