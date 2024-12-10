@@ -27,7 +27,7 @@ This is possible if renovate runs in self-hosted environments.
 
 ### Usage
 
-If renovate is executed via the official image (which it usually is in self-hosted environments) the structured output can be piped to `renovate-metrics` which transforms the output into
+If renovate is executed via the official image (usually used in self-hosted environments) the structured output can be piped to `renovate-metrics` which transforms the output into
 prometheus compatible metrics and pushes them to a prometheus push gateway.
 
 Important renovate needs to be started with `LOG_LEVEL=debug` as well as `LOG_FORMAT=json` otherwise `renovate-metrics` is unable to get all information required.
@@ -37,7 +37,12 @@ Example execution (It also goes through a tee pipe to get the renovate output to
 docker run -e RENOVATE_TOKEN=$GITHUB_TOKEN -e LOG_FORMAT=json -e LOG_LEVEL=debug renovate/renovate:slim org/my-repository | tee /dev/stderr | docker run -i ghcr.io/raffis/renovate-metrics:latest push --prometheus=http:/prometheus-push-gateway:9091
 ```
 
+### See it in action
+```sh
+docker compose up && make build test-local
+```
+
 ### Grafana dashboard
 
 This repository comes with a predefined grafana dashboard which gives an overview around all sorts of things. 
-See grafana/dashboard.json
+See `docker/grafana/provisioning/dashboards/dashboard.json`
