@@ -14,6 +14,7 @@ var (
 	prometheusArg = "http://localhost:9091"
 	bufferSize    = 10485760
 	logLevel      = 0
+	jobName       = "renovate"
 )
 
 func newStdLogger(flags int) stdr.StdLogger {
@@ -51,7 +52,7 @@ func init() {
 				return err
 			}
 
-			client := push.New(prometheusArg, "renovate")
+			client := push.New(prometheusArg, jobName)
 
 			for _, collector := range collectors {
 				if err := client.Delete(); err != nil {
@@ -68,6 +69,7 @@ func init() {
 	}
 
 	pushCmd.Flags().StringVarP(&prometheusArg, "prometheus", "", prometheusArg, "Prometheus push gateway URL")
+	pushCmd.Flags().StringVarP(&jobName, "job-name", "", jobName, "Job name for the prometheus gateway")
 	pushCmd.Flags().IntVarP(&bufferSize, "buffer-size", "", bufferSize, "Buffer size while parsing input")
 	pushCmd.Flags().IntVarP(&logLevel, "log-level", "", logLevel, "Log Level (Default is 0 which is no logging)")
 	rootCmd.AddCommand(pushCmd)
