@@ -48,7 +48,7 @@ func NewRepository(repo string) *repository {
 		ConstLabels: prometheus.Labels{
 			"repository": repo,
 		},
-	}, []string{"manager", "packageFile", "depName", "depType", "currentVersion", "updateType", "newVersion", "vulnerabilityFix", "releaseTimestamp"})
+	}, []string{"manager", "packageFile", "depName", "depType", "currentVersion", "updateType", "newVersion", "vulnerabilityFix", "releaseTimestamp", "branchName"})
 
 	lastSuccessfulRunMetric := prometheus.NewGauge(prometheus.GaugeOpts{
 		Namespace: "renovate",
@@ -125,6 +125,7 @@ func (p *repository) packageUpdate(metric *prometheus.GaugeVec, update packageUp
 		"depType":          update.DependencyType,
 		"updateType":       update.UpdateType,
 		"newVersion":       update.NewVersion,
+		"branchName":       update.BranchName,
 		"vulnerabilityFix": strconv.FormatBool(isVulnerabilityUpdate),
 		"releaseTimestamp": strconv.FormatInt(ts.Unix(), 10),
 	})

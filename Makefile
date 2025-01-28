@@ -24,7 +24,7 @@ test:
 	go test -coverprofile coverage.out -v ./...
 
 test-local:
-	./bin/renovate-metrics push --file=renovate-log.ndjson --prometheus=http://localhost:9091
+	./bin/renovate-metrics push --file=bin/renovate-log.ndjson --prometheus=http://localhost:9091
 
 GOLANGCI_LINT = $(GOBIN)/golangci-lint
 golangci-lint: ## Download golint locally if necessary.
